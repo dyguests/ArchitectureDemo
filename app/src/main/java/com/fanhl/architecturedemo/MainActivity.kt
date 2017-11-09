@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        val logLife = LogLife()
+        val logLife = LogLife(lifecycle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -52,7 +52,11 @@ class MainActivity : AppCompatActivity() {
 /**
  * 测试 LifecycleObserver
  */
-class LogLife : LifecycleObserver {
+class LogLife(lifecycle: Lifecycle) : LifecycleObserver {
+    init {
+        lifecycle.addObserver(this)
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
         Log.d(TAG, "onCreate ")
