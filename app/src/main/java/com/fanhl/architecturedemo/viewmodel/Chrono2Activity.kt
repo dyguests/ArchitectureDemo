@@ -4,10 +4,8 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.SystemClock
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.fanhl.architecturedemo.R
-
 import kotlinx.android.synthetic.main.activity_chrono2.*
 import kotlinx.android.synthetic.main.content_chrono2.*
 
@@ -18,19 +16,10 @@ class Chrono2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_chrono2)
         setSupportActionBar(toolbar)
 
-        val chronometerViewModel = ViewModelProviders.of(this).get(ChronometerViewModel::class.java)
+        val viewModel = ViewModelProviders.of(this).get(ChronometerViewModel::class.java)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
-        chronometerViewModel.startDate
-                ?.let { chronometer.base = it }
-                ?: let {
-            chronometerViewModel.startDate = SystemClock.elapsedRealtime()
-            chronometer.base = chronometerViewModel.startDate!!
-        }
+        viewModel.startDate ?: run { viewModel.startDate = SystemClock.elapsedRealtime() }
+        chronometer.base = viewModel.startDate!!
 
         chronometer.start()
     }
