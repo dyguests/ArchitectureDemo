@@ -1,7 +1,8 @@
 package com.fanhl.architecturedemo.viewmodel.step3
 
-import android.arch.lifecycle.*
-import android.arch.lifecycle.Observer
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,7 @@ import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.fanhl.architecturedemo.R
+import com.fanhl.architecturedemo.extensions.observe
 import kotlinx.android.synthetic.main.chrono_activity_3.*
 import java.util.*
 
@@ -24,10 +26,6 @@ class Chrono3Activity : AppCompatActivity() {
             timer_textview.text = resources.getString(R.string.seconds, it)
         }
     }
-}
-
-fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
-    observe(owner, Observer { it -> observer(it) })
 }
 
 class LiveDataTimerViewModel : ViewModel() {
