@@ -1,4 +1,4 @@
-package com.fanhl.architecturedemo
+package com.fanhl.architecturedemo.lifecycleobserver
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-
+import com.fanhl.architecturedemo.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class LifecycleObserverActivity : AppCompatActivity() {
