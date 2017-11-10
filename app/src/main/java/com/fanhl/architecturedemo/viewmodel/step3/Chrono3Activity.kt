@@ -1,31 +1,56 @@
 package com.fanhl.architecturedemo.viewmodel.step3
 
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.SystemClock
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.fanhl.architecturedemo.R
-import kotlinx.android.synthetic.main.activity_chrono.*
+import kotlinx.android.synthetic.main.chrono_activity_3.*
+import java.util.*
 
 class Chrono3Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chrono)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.chrono_activity_3)
 
-        val viewModel = ViewModelProviders.of(this).get(ChronometerViewModel::class.java)
+        val mLiveDataTimerViewModel = ViewModelProviders.of(this).get(LiveDataTimerViewModel::class.java)
 
-        viewModel.startDate ?: run { viewModel.startDate = SystemClock.elapsedRealtime() }
-        chronometer.base = viewModel.startDate!!
-
-        chronometer.start()
+        mLiveDataTimerViewModel.elapsedTime.observe(this, Observer { aLong ->
+            val newText = resources.getString(R.string.seconds, aLong)
+            timer_textview.text = newText
+            Log.d("ChronoActivity3", "Updating timer")
+        })
     }
 }
 
-class ChronometerViewModel(
-        var startDate: Long?
-) : ViewModel() {
-    constructor() : this(null)
+class LiveDataTimerViewModel : ViewModel() {
+    val elapsedTime = MutableLiveData<Long>()
+
+    private val mInitialTime: Long = SystemClock.elapsedRealtime()
+
+    init {
+        Timer().scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                val newValue = (SystemClock.elapsedRealtime() - mInitialTime) / 1000
+
+                Handler(Looper.getMainLooper()).post {
+                    Log.i(TAG, "run ")
+                    elapsedTime.value = newValue
+                }
+            }
+        }, ONE_SECOND.toLong(), ONE_SECOND.toLong())
+    }
+
+    companion object {
+        private val TAG = LiveDataTimerViewModel::class.java.simpleName
+        private const val ONE_SECOND = 1000
+
+    }
 }
