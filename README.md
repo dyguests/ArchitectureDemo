@@ -7,3 +7,5 @@ Android Architecture Components 学习.
 2. ViewModel
 
 3. LiveData
+
+4. Lifecycle provider

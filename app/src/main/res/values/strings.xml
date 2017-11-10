@@ -4,4 +4,5 @@
     <string name="title_activity_chrono2">Chrono2Activity</string>
     <string name="title_activity_chrono3">Chrono3Activity</string>
     <string name="seconds">%d seconds elapsed</string>
+    <string name="location">Location</string>
 </resources>
