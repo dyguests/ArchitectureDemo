@@ -25,7 +25,7 @@ class LifecycleObserverActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
 
-        val logLife = LogLife(lifecycle)
+        LogLife(lifecycle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
