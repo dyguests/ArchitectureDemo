@@ -33,7 +33,9 @@ class Step5Fragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(SeekBarViewModel::class.java)
+        // 注意两行代码的区别
+//        viewModel = ViewModelProviders.of(this).get(SeekBarViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity).get(SeekBarViewModel::class.java)
 
         subscribeSeekBar()
     }
