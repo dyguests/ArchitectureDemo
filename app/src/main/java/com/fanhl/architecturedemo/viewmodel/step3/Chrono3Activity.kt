@@ -1,9 +1,7 @@
 package com.fanhl.architecturedemo.viewmodel.step3
 
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.*
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,12 +20,14 @@ class Chrono3Activity : AppCompatActivity() {
 
         val mLiveDataTimerViewModel = ViewModelProviders.of(this).get(LiveDataTimerViewModel::class.java)
 
-        mLiveDataTimerViewModel.elapsedTime.observe(this, Observer { aLong ->
-            val newText = resources.getString(R.string.seconds, aLong)
-            timer_textview.text = newText
-            Log.d("ChronoActivity3", "Updating timer")
-        })
+        mLiveDataTimerViewModel.elapsedTime.observe(this) {
+            timer_textview.text = resources.getString(R.string.seconds, it)
+        }
     }
+}
+
+fun <T> LiveData<T>.observe(owner: LifecycleOwner, observer: (T?) -> Unit) {
+    observe(owner, Observer { it -> observer(it) })
 }
 
 class LiveDataTimerViewModel : ViewModel() {
