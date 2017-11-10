@@ -12,8 +12,6 @@ import com.fanhl.architecturedemo.R
 import kotlinx.android.synthetic.main.activity_location.*
 
 class LocationActivity : AppCompatActivity() {
-    private val mGpsListener = MyLocationListener()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
@@ -26,7 +24,6 @@ class LocationActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
@@ -37,25 +34,23 @@ class LocationActivity : AppCompatActivity() {
     }
 
     private fun bindLocationListener() {
-        BoundLocationManager.bindLocationListenerIn(this, mGpsListener, applicationContext)
+        BoundLocationManager.bindLocationListenerIn(this, object : LocationListener {
+            override fun onLocationChanged(location: Location) {
+                tv_location.text = location.latitude.toString() + ", " + location.longitude
+            }
+
+            override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+
+            override fun onProviderEnabled(provider: String) {
+                Toast.makeText(this@LocationActivity, "Provider enabled: " + provider, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onProviderDisabled(provider: String) {}
+        }, applicationContext)
     }
 
     companion object {
         private val REQUEST_LOCATION_PERMISSION_CODE = 1
     }
 
-    private inner class MyLocationListener : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            tv_location.text = location.latitude.toString() + ", " + location.longitude
-        }
-
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
-
-        override fun onProviderEnabled(provider: String) {
-            Toast.makeText(this@LocationActivity,
-                    "Provider enabled: " + provider, Toast.LENGTH_SHORT).show()
-        }
-
-        override fun onProviderDisabled(provider: String) {}
-    }
 }
