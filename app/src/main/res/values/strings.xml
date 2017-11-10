@@ -5,4 +5,7 @@
     <string name="title_activity_chrono3">Chrono3Activity</string>
     <string name="seconds">%d seconds elapsed</string>
     <string name="location">Location</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
