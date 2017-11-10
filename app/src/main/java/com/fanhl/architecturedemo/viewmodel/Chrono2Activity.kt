@@ -1,5 +1,6 @@
 package com.fanhl.architecturedemo.viewmodel
 
+import android.arch.lifecycle.ViewModel
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -23,3 +24,7 @@ class Chrono2Activity : AppCompatActivity() {
         chronometer.start()
     }
 }
+
+class ChronometerViewModel(
+        var startDate: Long?
+) : ViewModel()
