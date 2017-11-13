@@ -15,10 +15,14 @@ class RxLiveData<T> : MutableLiveData<T>() {
     fun asObservable(owner: LifecycleOwner): Observable<T> {
         return Observable.create<T> { emitter ->
             observe(owner) { data ->
-                if (data != null) {
-                    emitter.onNext(data)
-                } else {
-//                    emitter.onNext() // FIXME:How to send a null?
+                try {
+                    if (data != null) {
+                        emitter.onNext(data)
+                    } else {
+                        emitter.onError(NullPointerException("com.fanhl.architecturedemo.rxjava2.RxLiveData.asObservable中发送的数据不能为null"))
+                    }
+                } catch (e: Exception) {
+                    emitter.onError(e)
                 }
             }
         }
