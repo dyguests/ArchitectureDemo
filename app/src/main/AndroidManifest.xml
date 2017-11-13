@@ -63,6 +63,9 @@
             android:name=".rxjava2.Rxjava2Activity"
             android:label="@string/title_activity_rxjava2"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
         </activity>
     </application>
 
