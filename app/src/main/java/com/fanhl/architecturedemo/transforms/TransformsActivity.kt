@@ -19,9 +19,8 @@ class TransformsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_transforms)
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            l.value = System.currentTimeMillis()
-        }
+        fab.setOnClickListener { l.value = System.currentTimeMillis() }
+//        fab2.setOnClickListener { i.value = (System.currentTimeMillis() % Int.MAX_VALUE).toInt() }
 
         l.observe(this) { Log.i(TAG, "onCreate l:" + it) }
         s.observe(this) { Log.i(TAG, "onCreate s:" + it) }
