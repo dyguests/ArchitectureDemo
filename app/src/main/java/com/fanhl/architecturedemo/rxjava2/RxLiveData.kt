@@ -18,7 +18,7 @@ class RxLiveData<T> : MutableLiveData<T>() {
                 if (data != null) {
                     emitter.onNext(data)
                 } else {
-//                    emitter.empty()
+//                    emitter.onNext()
                 }
             }
         }

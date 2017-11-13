@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.fanhl.architecturedemo.R
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.combineLatest
 import kotlinx.android.synthetic.main.activity_rxjava2.*
 
 class Rxjava2Activity : AppCompatActivity() {
@@ -24,6 +26,11 @@ class Rxjava2Activity : AppCompatActivity() {
         liveData
                 .asObservable(this)
                 .subscribe { Log.i(TAG, "case2 data:$it") }
+
+        liveData
+                .asObservable(this)
+                .combineLatest(Observable.just("pppa"))
+                .subscribe { Log.i(TAG, "case3 data:${it.first} Pppa:${it.second}") }
     }
 
     companion object {
