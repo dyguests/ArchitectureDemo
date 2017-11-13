@@ -59,6 +59,11 @@
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".rxjava2.Rxjava2Activity"
+            android:label="@string/title_activity_rxjava2"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
